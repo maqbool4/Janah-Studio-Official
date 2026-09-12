@@ -71,29 +71,62 @@ export default function Home({ handleOrderTrigger }: { handleOrderTrigger: (serv
         </div>
       </div>
 
-      <BannerAd />
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.6 }}
+      >
+        <BannerAd />
+      </motion.div>
 
       {/* Recent Services */}
-      <section className="pt-4">
+      <motion.section 
+        className="pt-4"
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.6 }}
+      >
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-2xl font-black text-slate-900">Recently Added Services</h2>
           <Link to="/services" className="text-sm font-bold text-blue-500 hover:text-blue-600">View All</Link>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {recentServices.map((service, idx) => (
-            <ServiceCard
+            <motion.div 
               key={service.id}
-              service={service}
-              
-              onOrderTrigger={() => handleOrderTrigger(service.title)}
-            />
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: idx * 0.1 }}
+            >
+              <ServiceCard
+                service={service}
+                onOrderTrigger={() => handleOrderTrigger(service.title)}
+              />
+            </motion.div>
           ))}
         </div>
-      </section>
+      </motion.section>
 
-      <BannerAd />
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.6 }}
+      >
+        <BannerAd />
+      </motion.div>
 
-      <FAQAccordion />
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.6 }}
+      >
+        <FAQAccordion />
+      </motion.div>
     </div>
   );
 }
