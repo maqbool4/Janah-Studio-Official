@@ -41,18 +41,18 @@ export default function Home({ handleOrderTrigger }: { handleOrderTrigger: (serv
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="flex flex-col sm:flex-row gap-4 pt-2"
+            className="grid grid-cols-2 gap-3 pt-2 sm:max-w-md"
           >
             <Link
               to="/contact"
-              className="px-8 py-4 rounded-xl font-bold text-[#03101d] bg-gradient-to-r from-[#20e0dc] via-[#39a7ff] to-[#8c6cff] shadow-[0_10px_25px_rgba(57,167,255,0.25)] hover:shadow-[0_15px_35px_rgba(57,167,255,0.4)] hover:-translate-y-0.5 cursor-pointer transition-all flex items-center justify-center gap-2"
+              className="px-4 py-3 sm:px-8 sm:py-4 rounded-xl font-bold text-sm sm:text-base text-[#03101d] bg-gradient-to-r from-[#20e0dc] via-[#39a7ff] to-[#8c6cff] shadow-[0_10px_25px_rgba(57,167,255,0.25)] hover:shadow-[0_15px_35px_rgba(57,167,255,0.4)] hover:-translate-y-0.5 cursor-pointer transition-all flex items-center justify-center gap-1 sm:gap-2 text-center leading-tight"
             >
-              Start Your Project
-              <ArrowRight className="w-5 h-5 shrink-0" />
+              Start Project
+              <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 shrink-0 hidden sm:block" />
             </Link>
             <Link
               to="/services"
-              className="px-8 py-4 rounded-xl font-bold text-slate-800 bg-slate-100 border border-slate-200 hover:bg-slate-200 hover:border-slate-300 hover:-translate-y-0.5 transition-all flex items-center justify-center"
+              className="px-4 py-3 sm:px-8 sm:py-4 rounded-xl font-bold text-sm sm:text-base text-slate-800 bg-slate-100 border border-slate-200 hover:bg-slate-200 hover:border-slate-300 hover:-translate-y-0.5 transition-all flex items-center justify-center text-center leading-tight"
             >
               Explore Services
             </Link>

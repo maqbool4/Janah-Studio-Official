@@ -1,1 +1,16 @@
 @import "tailwindcss";
+
+/* Hide Google Translate original UI */
+.goog-te-banner-frame.skiptranslate, 
+.goog-te-balloon-frame {
+  display: none !important;
+}
+body {
+  top: 0px !important;
+}
+#google_translate_element {
+  display: none !important;
+}
+body {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}

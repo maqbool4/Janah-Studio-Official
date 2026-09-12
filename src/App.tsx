@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation, Link } from "react-router-dom";
 import { MessageCircle } from "lucide-react";
 import { CONFIG } from "./data";
 import AIParticlesBackground from "./components/AIParticlesBackground";
@@ -42,7 +42,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
-      <div className="min-h-screen text-slate-900 font-sans selection:bg-blue-200 relative">
+      <div className="min-h-screen text-slate-900 dark:text-slate-100 font-sans selection:bg-blue-200 relative transition-colors duration-300">
         <AIParticlesBackground />
         
         <Navbar onTriggerToast={triggerToast} />
@@ -53,18 +53,23 @@ export default function App() {
             <Route path="/services" element={<Services handleOrderTrigger={handleOrderTrigger} />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact triggerToast={triggerToast} />} />
+            <Route path="/privacy-policy" element={<div className="pt-32 pb-20 px-4 max-w-4xl mx-auto text-center"><h1 className="text-3xl font-black mb-4">Privacy Policy</h1><p>Our privacy policy will be updated here shortly.</p></div>} />
+            <Route path="/disclaimer" element={<div className="pt-32 pb-20 px-4 max-w-4xl mx-auto text-center"><h1 className="text-3xl font-black mb-4">Disclaimer</h1><p>Our disclaimer details will be updated here shortly.</p></div>} />
           </Routes>
         </main>
 
-        <footer className="py-12 border-t border-slate-200 bg-white">
-          <div className="w-full max-w-7xl mx-auto px-4 md:px-8 flex flex-col md:flex-row justify-between items-center gap-6 text-slate-600 text-xs">
+        <footer className="py-12 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 transition-colors duration-300">
+          <div className="w-full max-w-7xl mx-auto px-4 md:px-8 flex flex-col md:flex-row justify-between items-center gap-6 text-slate-600 dark:text-slate-400 text-xs">
             <div className="flex items-center gap-3">
-              <img src={CONFIG.brand.logo} alt="Janah Studio" className="w-7 h-7 rounded-lg bg-slate-50 p-0.5 object-contain border border-slate-200" />
+              <img src={CONFIG.brand.logo} alt="Janah Studio" className="w-7 h-7 rounded-lg bg-slate-50 dark:bg-slate-800 p-0.5 object-contain border border-slate-200 dark:border-slate-700" />
               <span>&copy; {new Date().getFullYear()} Janah Studio. All rights reserved.</span>
             </div>
-            <p className="text-center md:text-right font-medium text-slate-500">
-              Affordable · Modern · Practical Digital Solutions
-            </p>
+            <div className="flex flex-wrap items-center justify-center md:justify-end gap-x-6 gap-y-2 font-medium">
+              <Link to="/privacy-policy" className="hover:text-slate-900 dark:hover:text-white transition-colors">Privacy Policy</Link>
+              <Link to="/disclaimer" className="hover:text-slate-900 dark:hover:text-white transition-colors">Disclaimer</Link>
+              <Link to="/about" className="hover:text-slate-900 dark:hover:text-white transition-colors">About Us</Link>
+              <Link to="/contact" className="hover:text-slate-900 dark:hover:text-white transition-colors">Contact Us</Link>
+            </div>
           </div>
         </footer>
 

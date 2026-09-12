@@ -1,21 +1,85 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Mail, PhoneCall, Copy, Menu, X } from "lucide-react";
+import { Mail, PhoneCall, Menu, X, Moon, Sun, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { CONFIG } from "../data";
+
+const languages = [
+  { code: "en", label: "English (US)", flag: "🇺🇸" },
+  { code: "ur", label: "Urdu (PK)", flag: "🇵🇰" },
+  { code: "hi", label: "Hindi (IN)", flag: "🇮🇳" },
+  { code: "ar", label: "Arabic (IQ)", flag: "🇮🇶" },
+  { code: "en", label: "English (UK)", flag: "🇬🇧" },
+];
 
 export default function Navbar({ onTriggerToast }: { onTriggerToast: (msg: string) => void }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [langMenuOpen, setLangMenuOpen] = useState(false);
+  
+  const [isVisible, setIsVisible] = useState(true);
+  const lastScrollY = useRef(0);
+  const hideTimeout = useRef<NodeJS.Timeout | null>(null);
+
   const location = useLocation();
+
+  const [isDark, setIsDark] = useState(() => {
+    const saved = localStorage.getItem("theme");
+    return saved === "dark" || (!saved && window.matchMedia("(prefers-color-scheme: dark)").matches);
+  });
+
+  useEffect(() => {
+    if (isDark) {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    }
+  }, [isDark]);
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+      const currentScrollY = window.scrollY;
+      setScrolled(currentScrollY > 20);
+
+      if (currentScrollY === 0) {
+        setIsVisible(true);
+        if (hideTimeout.current) clearTimeout(hideTimeout.current);
+        lastScrollY.current = currentScrollY;
+        return;
+      }
+
+      if (currentScrollY > lastScrollY.current) {
+        // Scrolling down
+        setIsVisible(false);
+        setLangMenuOpen(false); // close menus on scroll down
+        if (hideTimeout.current) clearTimeout(hideTimeout.current);
+      } else {
+        // Scrolling up
+        setIsVisible(true);
+        if (hideTimeout.current) clearTimeout(hideTimeout.current);
+        hideTimeout.current = setTimeout(() => {
+          if (window.scrollY > 0) setIsVisible(false);
+        }, 3000);
+      }
+      
+      lastScrollY.current = currentScrollY;
     };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (hideTimeout.current) clearTimeout(hideTimeout.current);
+    };
   }, []);
+
+  const handleLanguageChange = (langCode: string) => {
+    setLangMenuOpen(false);
+    document.cookie = `googtrans=/auto/${langCode}; path=/`;
+    document.cookie = `googtrans=/auto/${langCode}; domain=${window.location.hostname}; path=/`;
+    window.location.reload();
+  };
 
   const navLinks = [
     { label: "Home", href: "/" },
@@ -27,8 +91,10 @@ export default function Navbar({ onTriggerToast }: { onTriggerToast: (msg: strin
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled ? "bg-white/80 backdrop-blur-xl border-b border-slate-200 py-3 shadow-sm" : "bg-transparent py-5"
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+          isVisible ? "translate-y-0" : "-translate-y-full"
+        } ${
+          scrolled ? "bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-b border-slate-200 dark:border-slate-800 py-3 shadow-sm" : "bg-transparent py-5"
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 md:px-8 flex items-center justify-between">
@@ -36,10 +102,10 @@ export default function Navbar({ onTriggerToast }: { onTriggerToast: (msg: strin
             <div className="w-9 h-9 rounded-xl bg-white flex items-center justify-center overflow-hidden border border-slate-200 shadow-[0_4px_12px_rgba(57,167,255,0.2)] group-hover:scale-105 transition-transform">
               <img src={CONFIG.brand.logo} alt="Janah Studio" className="w-6 h-6 object-contain" />
             </div>
-            <span className="text-xl font-black text-slate-900 tracking-tight">Janah Studio</span>
+            <span className="text-xl font-black text-slate-900 dark:text-white tracking-tight">Janah Studio</span>
           </Link>
 
-          <div className="hidden md:flex items-center bg-slate-50 border border-slate-200 rounded-full px-1 py-1">
+          <div className="hidden md:flex items-center bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-full px-1 py-1">
             {navLinks.map((link) => {
               const isActive = location.pathname === link.href;
               return (
@@ -47,7 +113,7 @@ export default function Navbar({ onTriggerToast }: { onTriggerToast: (msg: strin
                   key={link.label}
                   to={link.href}
                   className={`px-5 py-2 rounded-full text-sm font-bold transition-all ${
-                    isActive ? "bg-white text-slate-900 shadow-sm border border-slate-200" : "text-slate-600 hover:text-slate-900 hover:bg-slate-100"
+                    isActive ? "bg-white dark:bg-slate-700 text-slate-900 dark:text-white shadow-sm border border-slate-200 dark:border-slate-600" : "text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-700"
                   }`}
                 >
                   {link.label}
@@ -57,9 +123,51 @@ export default function Navbar({ onTriggerToast }: { onTriggerToast: (msg: strin
           </div>
 
           <div className="hidden md:flex items-center gap-3">
+            {/* Theme Toggle */}
+            <button
+              onClick={() => setIsDark(!isDark)}
+              className="w-10 h-10 rounded-full flex items-center justify-center border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
+              title="Toggle Theme"
+            >
+              {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+            </button>
+
+            {/* Language Selector */}
+            <div className="relative">
+              <button
+                onClick={() => setLangMenuOpen(!langMenuOpen)}
+                className="h-10 px-3 rounded-full flex items-center gap-2 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
+              >
+                <GlobeIcon />
+                <ChevronDown className="w-3 h-3" />
+              </button>
+              
+              <AnimatePresence>
+                {langMenuOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 10 }}
+                    className="absolute right-0 mt-2 w-40 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl shadow-lg overflow-hidden py-1 z-50"
+                  >
+                    {languages.map((lang, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => handleLanguageChange(lang.code)}
+                        className="w-full text-left px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 flex items-center gap-2"
+                      >
+                        <span>{lang.flag}</span>
+                        <span>{lang.label}</span>
+                      </button>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
             <a
               href={`mailto:${CONFIG.brand.email}`}
-              className="w-10 h-10 rounded-full flex items-center justify-center border border-slate-200 text-slate-600 hover:bg-slate-100 transition-all"
+              className="w-10 h-10 rounded-full flex items-center justify-center border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all"
               title="Email Us"
             >
               <Mail className="w-4 h-4" />
@@ -68,15 +176,15 @@ export default function Navbar({ onTriggerToast }: { onTriggerToast: (msg: strin
               href={`https://wa.me/${CONFIG.brand.whatsapp}`}
               target="_blank"
               rel="noreferrer"
-              className="px-5 py-2.5 rounded-full bg-slate-900 text-white text-sm font-bold hover:bg-slate-800 transition-all flex items-center gap-2 shadow-sm"
+              className="px-5 py-2.5 rounded-full bg-slate-900 dark:bg-blue-600 text-white text-sm font-bold hover:bg-slate-800 dark:hover:bg-blue-700 transition-all flex items-center gap-2 shadow-sm"
             >
               <PhoneCall className="w-4 h-4" />
-              <span>WhatsApp Us</span>
+              <span>WhatsApp</span>
             </a>
           </div>
 
           <button
-            className="md:hidden p-2 text-slate-900"
+            className="md:hidden p-2 text-slate-900 dark:text-white"
             onClick={() => setMobileMenuOpen(true)}
           >
             <Menu className="w-6 h-6" />
@@ -91,32 +199,65 @@ export default function Navbar({ onTriggerToast }: { onTriggerToast: (msg: strin
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: "100%" }}
             transition={{ type: "spring", damping: 25, stiffness: 200 }}
-            className="fixed inset-0 z-[100] bg-white flex flex-col"
+            className="fixed inset-0 z-[100] bg-white dark:bg-slate-900 flex flex-col"
           >
-            <div className="flex items-center justify-between p-5 border-b border-slate-200">
-              <span className="text-xl font-black text-slate-900">Menu</span>
-              <button onClick={() => setMobileMenuOpen(false)} className="p-2 text-slate-600 bg-slate-100 rounded-full">
+            <div className="flex items-center justify-between p-5 border-b border-slate-200 dark:border-slate-800">
+              <span className="text-xl font-black text-slate-900 dark:text-white">Menu</span>
+              <button onClick={() => setMobileMenuOpen(false)} className="p-2 text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 rounded-full">
                 <X className="w-5 h-5" />
               </button>
             </div>
-            <div className="flex flex-col p-6 gap-4 flex-1">
+            <div className="flex flex-col p-6 gap-4 flex-1 overflow-y-auto">
+              <div className="flex items-center gap-4 mb-4">
+                <button
+                  onClick={() => setIsDark(!isDark)}
+                  className="flex-1 py-3 rounded-xl flex items-center justify-center gap-2 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 font-bold"
+                >
+                  {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+                  {isDark ? "Light Mode" : "Dark Mode"}
+                </button>
+              </div>
+
+              <div className="mb-4">
+                <p className="text-sm font-bold text-slate-500 dark:text-slate-400 mb-2 uppercase">Language</p>
+                <div className="grid grid-cols-2 gap-2">
+                  {languages.map((lang, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => handleLanguageChange(lang.code)}
+                      className="text-left px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-800 text-sm font-medium text-slate-700 dark:text-slate-300 flex items-center gap-2 border border-slate-100 dark:border-slate-700"
+                    >
+                      <span>{lang.flag}</span>
+                      <span>{lang.label}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <p className="text-sm font-bold text-slate-500 dark:text-slate-400 mb-2 uppercase">Navigation</p>
               {navLinks.map((link) => (
                 <Link
                   key={link.label}
                   to={link.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`text-2xl font-bold p-2 ${location.pathname === link.href ? "text-blue-500" : "text-slate-900"}`}
+                  className={`text-2xl font-bold p-2 ${location.pathname === link.href ? "text-blue-500" : "text-slate-900 dark:text-white"}`}
                 >
                   {link.label}
                 </Link>
               ))}
             </div>
-            <div className="p-6 border-t border-slate-200 bg-slate-50 space-y-4">
+            <div className="p-6 border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 space-y-4">
+              <a
+                href={`mailto:${CONFIG.brand.email}`}
+                className="w-full py-4 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-white font-bold text-center flex items-center justify-center gap-2"
+              >
+                <Mail className="w-5 h-5" /> Email Us
+              </a>
               <a
                 href={`https://wa.me/${CONFIG.brand.whatsapp}`}
                 target="_blank"
                 rel="noreferrer"
-                className="w-full py-4 rounded-xl bg-slate-900 text-white font-bold text-center flex items-center justify-center gap-2"
+                className="w-full py-4 rounded-xl bg-slate-900 dark:bg-blue-600 text-white font-bold text-center flex items-center justify-center gap-2"
               >
                 <PhoneCall className="w-5 h-5" /> WhatsApp Us
               </a>
@@ -125,5 +266,16 @@ export default function Navbar({ onTriggerToast }: { onTriggerToast: (msg: strin
         )}
       </AnimatePresence>
     </>
+  );
+}
+
+// Simple Globe Icon component since it wasn't exported directly in the import
+function GlobeIcon() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="10"/>
+      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+      <path d="M2 12h20"/>
+    </svg>
   );
 }
