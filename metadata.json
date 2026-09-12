@@ -1,0 +1,8 @@
+{
+  "name": "Janah Studio Official ",
+  "description": "website development, app development, creative AI-powered graphic designs, and professional data entry services.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
