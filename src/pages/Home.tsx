@@ -14,13 +14,13 @@ export default function Home({ handleOrderTrigger }: { handleOrderTrigger: (serv
   return (
     <div className="pt-20 pb-8 px-4 w-full max-w-7xl mx-auto space-y-12">
       {/* Hero Content */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center pt-8">
-        <div className="lg:col-span-7 space-y-6 text-left">
+      <div className="flex flex-col items-center justify-center pt-16 pb-8">
+        <div className="space-y-6 text-center flex flex-col items-center max-w-3xl">
           <motion.h1
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-tight leading-[1.05] text-slate-900"
+            className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight leading-[1.05] text-slate-900 dark:text-white"
           >
             Build Your Digital Presence{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#20e0dc] via-[#39a7ff] to-[#8c6cff]">
@@ -32,7 +32,7 @@ export default function Home({ handleOrderTrigger }: { handleOrderTrigger: (serv
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-slate-600 text-base sm:text-lg max-w-xl leading-relaxed"
+            className="text-slate-600 dark:text-slate-300 text-base sm:text-lg max-w-2xl leading-relaxed"
           >
             Professional websites, bespoke desktop applications, graphic design, voice-synthesized AI video services, and high-speed data entry. Built cheaply, delivered instantly.
           </motion.p>
@@ -41,7 +41,7 @@ export default function Home({ handleOrderTrigger }: { handleOrderTrigger: (serv
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
-            className="grid grid-cols-2 gap-3 pt-2 sm:max-w-md"
+            className="grid grid-cols-2 gap-3 pt-4 w-full sm:max-w-md"
           >
             <Link
               to="/contact"
@@ -52,22 +52,11 @@ export default function Home({ handleOrderTrigger }: { handleOrderTrigger: (serv
             </Link>
             <Link
               to="/services"
-              className="px-4 py-3 sm:px-8 sm:py-4 rounded-xl font-bold text-sm sm:text-base text-slate-800 bg-slate-100 border border-slate-200 hover:bg-slate-200 hover:border-slate-300 hover:-translate-y-0.5 transition-all flex items-center justify-center text-center leading-tight"
+              className="px-4 py-3 sm:px-8 sm:py-4 rounded-xl font-bold text-sm sm:text-base text-slate-800 dark:text-slate-200 bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:hover:bg-slate-700 hover:border-slate-300 dark:hover:border-slate-600 hover:-translate-y-0.5 transition-all flex items-center justify-center text-center leading-tight"
             >
               Explore Services
             </Link>
           </motion.div>
-        </div>
-
-        <div className="lg:col-span-5 relative flex items-center justify-center">
-          <motion.img
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            src="/src/assets/images/developer_coding_1789224221156.jpg"
-            alt="Developer coding on PC"
-            className="w-full max-w-md md:max-w-lg lg:max-w-xl rounded-2xl shadow-[0_20px_50px_rgba(32,224,220,0.15)] border border-[rgba(57,167,255,0.15)] object-cover"
-          />
         </div>
       </div>
 
