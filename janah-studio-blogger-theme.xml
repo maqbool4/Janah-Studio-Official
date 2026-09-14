@@ -5,6 +5,13 @@
   <meta content='width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=5' name='viewport'/>
   <title><data:view.title.escaped/></title>
   <b:include data='blog' name='all-head-content'/>
+
+  <!-- Security Headers & Hardening -->
+  <meta http-equiv='X-Frame-Options' content='SAMEORIGIN'/>
+  <meta http-equiv='X-Content-Type-Options' content='nosniff'/>
+  <meta http-equiv='Content-Security-Policy' content="default-src 'self' 'unsafe-inline' 'unsafe-eval' https: data: blob:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; style-src 'self' 'unsafe-inline' https:; font-src 'self' https: data:; img-src 'self' https: data: blob:; connect-src 'self' https:; frame-src 'self' https:; object-src 'none'; base-uri 'self';"/>
+  <meta http-equiv='X-XSS-Protection' content='1; mode=block'/>
+  <meta name='referrer' content='strict-origin-when-cross-origin'/>
   <script src='https://cdn.tailwindcss.com'></script>
   <script src='https://unpkg.com/lucide@latest'></script>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet" />

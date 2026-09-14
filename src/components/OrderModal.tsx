@@ -410,20 +410,20 @@ export default function OrderModal({
                 <p className="text-xs text-slate-600 leading-relaxed">
                   Want to ask a quick question instead? Click below to instantly launch WhatsApp with a pre-filled message about <b>{formData.service}</b>.
                 </p>
-                <div className="flex flex-col sm:flex-row gap-3 pt-1">
+                <div className="grid grid-cols-2 gap-3 pt-1">
                   <button
                     onClick={handleWhatsAppDirect}
-                    className="flex-1 flex items-center justify-center gap-2 py-3.5 rounded-xl text-sm font-black border border-[rgba(32,199,124,0.35)] bg-[rgba(24,199,124,0.06)] hover:bg-[rgba(24,199,124,0.14)] text-[#18c77c] shadow-[0_4px_15px_rgba(24,199,124,0.08)] hover:-translate-y-0.5 transition-all cursor-pointer"
+                    className="flex-1 flex items-center justify-center gap-2 py-3.5 rounded-xl text-xs sm:text-sm font-black border border-[rgba(32,199,124,0.35)] bg-[rgba(24,199,124,0.06)] hover:bg-[rgba(24,199,124,0.14)] text-[#18c77c] shadow-[0_4px_15px_rgba(24,199,124,0.08)] hover:-translate-y-0.5 transition-all cursor-pointer"
                   >
                     <PhoneCall className="w-4 h-4 shrink-0" />
-                    Direct WhatsApp Chat
+                    WhatsApp
                   </button>
                   <button
                     onClick={handleEmailDirect}
-                    className="flex-1 flex items-center justify-center gap-2 py-3.5 rounded-xl text-sm font-black border border-[rgba(57,167,255,0.25)] bg-[#0a1526] text-slate-900 hover:bg-[#12243d] hover:-translate-y-0.5 transition-all cursor-pointer"
+                    className="flex-1 flex items-center justify-center gap-2 py-3.5 rounded-xl text-xs sm:text-sm font-black border border-[rgba(57,167,255,0.35)] bg-[rgba(57,167,255,0.06)] hover:bg-[rgba(57,167,255,0.14)] text-[#0284c7] dark:text-[#38bdf8] shadow-[0_4px_15px_rgba(57,167,255,0.08)] hover:-translate-y-0.5 transition-all cursor-pointer"
                   >
                     <Mail className="w-4 h-4 shrink-0" />
-                    Send Instant Email
+                    Email
                   </button>
                 </div>
               </div>

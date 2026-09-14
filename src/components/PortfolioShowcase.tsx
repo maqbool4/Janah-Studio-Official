@@ -4,7 +4,7 @@ import { ExternalLink, Layers, Smartphone, Globe, Sparkles, Download } from "luc
 import { CONFIG } from "../data";
 
 interface PortfolioShowcaseProps {
-  onOrderTrigger: (serviceName: string) => void;
+  onOrderTrigger?: (serviceName: string) => void;
 }
 
 type TabType = "all" | "websites" | "apps" | "concepts";
@@ -187,9 +187,9 @@ export default function PortfolioShowcase({ onOrderTrigger }: PortfolioShowcaseP
                       <button
                         onClick={() => {
                           if (project.type === "Website Demo") {
-                            onOrderTrigger("Website Development");
+                            onOrderTrigger?.("Website Development");
                           } else {
-                            onOrderTrigger(project.title);
+                            onOrderTrigger?.(project.title);
                           }
                         }}
                         className="w-full flex items-center justify-center gap-2 py-3 rounded-xl text-xs font-bold bg-slate-100 text-slate-900 border border-slate-200 hover:bg-slate-200 hover:border-slate-300 transition-all cursor-pointer"

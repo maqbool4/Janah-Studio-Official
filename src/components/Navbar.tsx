@@ -246,20 +246,20 @@ export default function Navbar({ onTriggerToast }: { onTriggerToast: (msg: strin
                 </Link>
               ))}
             </div>
-            <div className="p-6 border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 space-y-4">
-              <a
-                href={`mailto:${CONFIG.brand.email}`}
-                className="w-full py-4 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-white font-bold text-center flex items-center justify-center gap-2"
-              >
-                <Mail className="w-5 h-5" /> Email Us
-              </a>
+            <div className="p-6 border-t border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-900 grid grid-cols-2 gap-3">
               <a
                 href={`https://wa.me/${CONFIG.brand.whatsapp}`}
                 target="_blank"
                 rel="noreferrer"
-                className="w-full py-4 rounded-xl bg-slate-900 dark:bg-blue-600 text-white font-bold text-center flex items-center justify-center gap-2"
+                className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl text-sm font-black border border-[rgba(32,199,124,0.35)] bg-[rgba(24,199,124,0.06)] hover:bg-[rgba(24,199,124,0.14)] text-[#18c77c] shadow-[0_4px_15px_rgba(24,199,124,0.08)] hover:-translate-y-0.5 transition-all cursor-pointer"
               >
-                <PhoneCall className="w-5 h-5" /> WhatsApp Us
+                <PhoneCall className="w-5 h-5 shrink-0" /> WhatsApp
+              </a>
+              <a
+                href={`mailto:${CONFIG.brand.email}`}
+                className="w-full flex items-center justify-center gap-2 py-3.5 rounded-xl text-sm font-black border border-[rgba(57,167,255,0.35)] bg-[rgba(57,167,255,0.06)] hover:bg-[rgba(57,167,255,0.14)] text-[#0284c7] dark:text-[#38bdf8] shadow-[0_4px_15px_rgba(57,167,255,0.08)] hover:-translate-y-0.5 transition-all cursor-pointer"
+              >
+                <Mail className="w-5 h-5 shrink-0" /> Email
               </a>
             </div>
           </motion.div>
