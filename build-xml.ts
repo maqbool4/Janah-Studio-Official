@@ -243,6 +243,15 @@ const xmlTemplate = `<?xml version="1.0" encoding="UTF-8" ?>
       </div>
     </div>
 
+    <!-- Adsterra Banner Ad Unit (Top Placement) -->
+    <div class="max-w-7xl mx-auto px-4 my-8 flex flex-col items-center justify-center relative z-10">
+      <span class="text-[10px] uppercase font-bold tracking-widest text-[#687b91] mb-1.5 select-none">Advertisement</span>
+      <div class="w-full max-w-[760px] min-h-[90px] rounded-2xl bg-[#081221]/80 border border-[rgba(126,180,255,0.12)] p-2 flex items-center justify-center overflow-hidden">
+        <script async="async" data-cfasync="false" src="https://pl31411689.profitableratecpmnetwork.com/4a72a9363ebd7283bb81befd644783c7/invoke.js"></script>
+        <div id="container-4a72a9363ebd7283bb81befd644783c7"></div>
+      </div>
+    </div>
+
     <!-- Services Section -->
     <div id="services" class="py-24 relative px-4">
       <div class="max-w-7xl mx-auto relative z-10">
@@ -341,6 +350,15 @@ const xmlTemplate = `<?xml version="1.0" encoding="UTF-8" ?>
         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
           ${buildPricingHtml()}
         </div>
+      </div>
+    </div>
+
+    <!-- Adsterra Banner Ad Unit (Bottom Placement) -->
+    <div class="max-w-7xl mx-auto px-4 my-8 flex flex-col items-center justify-center relative z-10">
+      <span class="text-[10px] uppercase font-bold tracking-widest text-[#687b91] mb-1.5 select-none">Advertisement</span>
+      <div class="w-full max-w-[760px] min-h-[90px] rounded-2xl bg-[#081221]/80 border border-[rgba(126,180,255,0.12)] p-2 flex items-center justify-center overflow-hidden">
+        <script async="async" data-cfasync="false" src="https://pl31411689.profitableratecpmnetwork.com/4a72a9363ebd7283bb81befd644783c7/invoke.js"></script>
+        <div id="container-4a72a9363ebd7283bb81befd644783c7"></div>
       </div>
     </div>
   </b:if>

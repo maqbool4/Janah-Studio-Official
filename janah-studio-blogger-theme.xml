@@ -5,7 +5,7 @@
   <meta content='width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=5' name='viewport'/>
   <title><data:view.title.escaped/></title>
   <b:include data='blog' name='all-head-content'/>
-
+  
   <!-- Security Headers & Hardening -->
   <meta http-equiv='X-Frame-Options' content='SAMEORIGIN'/>
   <meta http-equiv='X-Content-Type-Options' content='nosniff'/>
@@ -177,6 +177,15 @@
             
           </div>
         </div>
+      </div>
+    </div>
+
+    <!-- Adsterra Banner Ad Unit (Top Placement) -->
+    <div class="max-w-7xl mx-auto px-4 my-8 flex flex-col items-center justify-center relative z-10">
+      <span class="text-[10px] uppercase font-bold tracking-widest text-[#687b91] mb-1.5 select-none">Advertisement</span>
+      <div class="w-full max-w-[760px] min-h-[90px] rounded-2xl bg-[#081221]/80 border border-[rgba(126,180,255,0.12)] p-2 flex items-center justify-center overflow-hidden">
+        <script async="async" data-cfasync="false" src="https://pl31411689.profitableratecpmnetwork.com/4a72a9363ebd7283bb81befd644783c7/invoke.js"></script>
+        <div id="container-4a72a9363ebd7283bb81befd644783c7"></div>
       </div>
     </div>
 
@@ -1314,6 +1323,15 @@
     </div>
     
         </div>
+      </div>
+    </div>
+
+    <!-- Adsterra Banner Ad Unit (Bottom Placement) -->
+    <div class="max-w-7xl mx-auto px-4 my-8 flex flex-col items-center justify-center relative z-10">
+      <span class="text-[10px] uppercase font-bold tracking-widest text-[#687b91] mb-1.5 select-none">Advertisement</span>
+      <div class="w-full max-w-[760px] min-h-[90px] rounded-2xl bg-[#081221]/80 border border-[rgba(126,180,255,0.12)] p-2 flex items-center justify-center overflow-hidden">
+        <script async="async" data-cfasync="false" src="https://pl31411689.profitableratecpmnetwork.com/4a72a9363ebd7283bb81befd644783c7/invoke.js"></script>
+        <div id="container-4a72a9363ebd7283bb81befd644783c7"></div>
       </div>
     </div>
   </b:if>

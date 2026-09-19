@@ -1,6 +1,7 @@
 import React, { useState, FormEvent } from "react";
 import { User, PhoneCall, Mail, MapPin, ArrowRight } from "lucide-react";
 import { CONFIG } from "../data";
+import BannerAd from "../components/BannerAd";
 
 export default function Contact({ triggerToast }: { triggerToast: (msg: string, type?: "success" | "error") => void }) {
   const [contactForm, setContactForm] = useState({ name: "", phone: "", email: "", country: "", message: "" });
@@ -101,6 +102,8 @@ export default function Contact({ triggerToast }: { triggerToast: (msg: string, 
           <ArrowRight className="w-4 h-4 shrink-0" />
         </button>
       </form>
+
+      <BannerAd />
     </div>
   );
 }
